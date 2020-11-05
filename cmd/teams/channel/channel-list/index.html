@@ -8434,8 +8434,10 @@
 <dl>
 <dt><code>-h, --help</code></dt>
 <dd>output usage information</dd>
-<dt><code>-i, --teamId &lt;teamId&gt;</code></dt>
-<dd>The ID of the team to list the channels of</dd>
+<dt><code>-i, --teamId [teamId]</code></dt>
+<dd>The ID of the team to list the channels of. Specify either <code>teamId</code> or <code>teamName</code> but not both</dd>
+<dt><code>--teamName [teamName]</code></dt>
+<dd>The display name of the team to list the channels of. Specify either <code>teamId</code> or <code>teamName</code> but not both</dd>
 <dt><code>--query [query]</code></dt>
 <dd>JMESPath query string. See <a href="http://jmespath.org/">http://jmespath.org/</a> for more information and examples</dd>
 <dt><code>-o, --output [output]</code></dt>
@@ -8446,8 +8448,11 @@
 <dd>Runs command with debug logging</dd>
 </dl>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
-<p>List the channels in a specified Microsoft Teams team</p>
+<p>List the channels in a specified Microsoft Teams team with id 00000000-0000-0000-0000-000000000000</p>
 <div class="codehilite"><pre><span></span>m365 teams channel list --teamId <span class="m">00000000</span>-0000-0000-0000-000000000000
+</pre></div>
+<p>List the channels in a specified Microsoft Teams team with name <em>Team Name</em></p>
+<div class="codehilite"><pre><span></span>m365 teams channel list --teamName <span class="s2">&quot;Team Name&quot;</span>
 </pre></div>
                 
                   
