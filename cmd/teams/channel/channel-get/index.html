@@ -8434,10 +8434,14 @@
 <dl>
 <dt><code>-h, --help</code></dt>
 <dd>output usage information</dd>
-<dt><code>-i, --teamId &lt;teamId&gt;</code></dt>
-<dd>The ID of the team to which the channel belongs</dd>
+<dt><code>-i, --teamId [teamId]</code></dt>
+<dd>The ID of the team to which the channel belongs to. Specify either teamId or teamName but not both</dd>
+<dt><code>--teamName [teamName]</code></dt>
+<dd>The display name of the team to which the channel belongs to. Specify either teamId or teamName but not both</dd>
 <dt><code>-c, --channelId &lt;channelId&gt;</code></dt>
-<dd>The ID of the channel for which to retrieve more information</dd>
+<dd>The ID of the channel for which to retrieve more information. Specify either channelId or channelName but not both</dd>
+<dt><code>--channelName [channelName]</code></dt>
+<dd>The display name of the channel for which to retrieve more information. Specify either channelId or channelName but not both</dd>
 <dt><code>--query [query]</code></dt>
 <dd>JMESPath query string. See <a href="http://jmespath.org/">http://jmespath.org/</a> for more information and examples</dd>
 <dt><code>-o, --output [output]</code></dt>
@@ -8449,7 +8453,10 @@
 </dl>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
 <p>Get information about Microsoft Teams team channel with id <em>19:493665404ebd4a18adb8a980a31b4986@thread.skype</em></p>
-<div class="codehilite"><pre><span></span>m365 teams channel get --teamId <span class="s1">&#39;00000000-0000-0000-0000-000000000000&#39;</span> --channelId <span class="s1">&#39;19:493665404ebd4a18adb8a980a31b4986@thread.skype&#39;</span>
+<div class="codehilite"><pre><span></span>m365 teams channel get --teamId <span class="m">00000000</span>-0000-0000-0000-000000000000 --channelId <span class="m">19</span>:493665404ebd4a18adb8a980a31b4986@thread.skype
+</pre></div>
+<p>Get information about Microsoft Teams team channel with name <em>Channel Name</em></p>
+<div class="codehilite"><pre><span></span>m365 teams channel get --teamName <span class="s2">&quot;Team Name&quot;</span> --channelName <span class="s2">&quot;Channel Name&quot;</span>
 </pre></div>
                 
                   
