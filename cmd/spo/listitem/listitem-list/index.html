@@ -8610,14 +8610,14 @@
 <dd>ID of the list to retrieve items from. Specify <code>id</code> or <code>title</code> but not both</dd>
 <dt><code>-t, --title [listTitle]</code></dt>
 <dd>Title of the list from which to retrieve the item. Specify <code>id</code> or <code>title</code> but not both</dd>
-<dt><code>-q, --query [camlQuery]</code></dt>
+<dt><code>-q, --camlQuery [camlQuery]</code></dt>
 <dd>CAML query to use to query the list of items with</dd>
 <dt><code>-f, --fields [fields]</code></dt>
-<dd>Comma-separated list of fields to retrieve. Will retrieve all fields if not specified and json output is requested. Specify <code>query</code> or <code>fields</code> but not both</dd>
-<dt><code>-l, --filter [odataFilter]</code></dt>
-<dd>OData filter to use to query the list of items with. Specify <code>query</code> or <code>filter</code> but not both</dd>
+<dd>Comma-separated list of fields to retrieve. Will retrieve all fields if not specified and json output is requested. Specify <code>camlQuery</code> or <code>fields</code> but not both</dd>
+<dt><code>-l, --filter [filter]</code></dt>
+<dd>OData filter to use to query the list of items with. Specify <code>camlQuery</code> or <code>filter</code> but not both</dd>
 <dt><code>-p, --pageSize [pageSize]</code></dt>
-<dd>Number of list items to return. Specify <code>query</code> or <code>pageSize</code> but not both</dd>
+<dd>Number of list items to return. Specify <code>camlQuery</code> or <code>pageSize</code> but not both</dd>
 <dt><code>-n, --pageNumber [pageNumber]</code></dt>
 <dd>Page number to return if <code>pageSize</code> is specified (first page is indexed as value of 0)</dd>
 <dt><code>--query [query]</code></dt>
@@ -8636,7 +8636,7 @@
 <div class="codehilite"><pre><span></span>m365 spo listitem list --title <span class="s2">&quot;Demo List&quot;</span> --webUrl https://contoso.sharepoint.com/sites/project-x
 </pre></div>
 <p>From a list named <em>Demo List</em> get all items with title <em>Demo list item</em> using a CAML query</p>
-<div class="codehilite"><pre><span></span>m365 spo listitem list --title <span class="s2">&quot;Demo List&quot;</span> --webUrl https://contoso.sharepoint.com/sites/project-x --query <span class="s2">&quot;&lt;View&gt;&lt;Query&gt;&lt;Where&gt;&lt;Eq&gt;&lt;FieldRef Name=&#39;Title&#39; /&gt;&lt;Value Type=&#39;Text&#39;&gt;Demo list item&lt;/Value&gt;&lt;/Eq&gt;&lt;/Where&gt;&lt;/Query&gt;&lt;/View&gt;&quot;</span>
+<div class="codehilite"><pre><span></span>m365 spo listitem list --title <span class="s2">&quot;Demo List&quot;</span> --webUrl https://contoso.sharepoint.com/sites/project-x --camlQuery <span class="s2">&quot;&lt;View&gt;&lt;Query&gt;&lt;Where&gt;&lt;Eq&gt;&lt;FieldRef Name=&#39;Title&#39; /&gt;&lt;Value Type=&#39;Text&#39;&gt;Demo list item&lt;/Value&gt;&lt;/Eq&gt;&lt;/Where&gt;&lt;/Query&gt;&lt;/View&gt;&quot;</span>
 </pre></div>
 <p>Get all items from a list with ID <em>935c13a0-cc53-4103-8b48-c1d0828eaa7f</em></p>
 <div class="codehilite"><pre><span></span>m365 spo listitem list --id 935c13a0-cc53-4103-8b48-c1d0828eaa7f --webUrl https://contoso.sharepoint.com/sites/project-x

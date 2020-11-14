@@ -8668,7 +8668,7 @@
 <div class="codehilite"><pre><span></span>m365 spo sitescript add --title <span class="s2">&quot;Contoso&quot;</span> --description <span class="s2">&quot;Contoso theme script&quot;</span> --content <span class="s1">&#39;`{&quot;abc&quot;: &quot;def&quot;}`&#39;</span>
 </pre></div>
 <h2 id="verbose-and-debug-mode">Verbose and debug mode<a class="headerlink" href="#verbose-and-debug-mode" title="Permanent link">&para;</a></h2>
-<p>By default, commands output only the information returned by the corresponding Microsoft 365 API, whether the command result or error. You can choose for a more user-friendly output by using the <code>--verbose</code> option or setting the <code>OFFICE365CLI_VERBOSE</code> environment variable to <code>1</code>. For example: by default, when checking status of the Microsoft 365 Public CDN, you would see:</p>
+<p>By default, commands output only the information returned by the corresponding Microsoft 365 API, whether the command result or error. You can choose for a more user-friendly output by using the <code>--verbose</code> option or setting the <code>CLIMICROSOFT365_VERBOSE</code> environment variable to <code>1</code>. For example: by default, when checking status of the Microsoft 365 Public CDN, you would see:</p>
 <div class="codehilite"><pre><span></span>$ m365 spo cdn get
 <span class="nb">true</span>
 </pre></div>
@@ -8677,7 +8677,7 @@
 Retrieving status of Public CDN...
 Public CDN at https://contoso-admin.sharepoint.com is enabled
 </pre></div>
-<p>If you're experiencing problems when using the CLI for Microsoft 365, you can use the <code>--debug</code> option or set the <code>OFFICE365CLI_DEBUG</code> environment variable to <code>1</code>. On top of the output from the verbose mode, the debug mode will provide you with detailed information about all requests and responses from the Microsoft 365 APIs used by the command.</p>
+<p>If you're experiencing problems when using the CLI for Microsoft 365, you can use the <code>--debug</code> option or set the <code>CLIMICROSOFT365_DEBUG</code> environment variable to <code>1</code>. On top of the output from the verbose mode, the debug mode will provide you with detailed information about all requests and responses from the Microsoft 365 APIs used by the command.</p>
 <h2 id="command-completion">Command completion<a class="headerlink" href="#command-completion" title="Permanent link">&para;</a></h2>
 <p>To help you use its commands, CLI for Microsoft 365 offers you the ability to autocomplete commands and options that you're typing in the prompt. Some additional setup, specific for the shell and terminal that you use, is required to enable command completion for CLI for Microsoft 365. For more information on configuring command completion for the CLI for Microsoft 365 see the <a href="../../concepts/completion/">command completion</a> article.</p>
                 
