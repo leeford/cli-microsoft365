@@ -9,6 +9,7 @@ import GlobalOptions from '../../../../GlobalOptions';
 import request from '../../../../request';
 import GraphCommand from '../../../base/GraphCommand';
 import commands from '../../commands';
+import { Group } from '../../../aad/commands/o365group/Group';
 
 enum TeamsAsyncOperationStatus {
   Invalid = "invalid",
@@ -121,11 +122,19 @@ class TeamsTeamAddCommand extends GraphCommand {
             .then((teamsAsyncOperation: TeamsAsyncOperation) => {
               if (!args.options.wait) {
                 resolve(teamsAsyncOperation);
-              }
-              else {
+              } else {
                 setTimeout(() => {
-                  this.waitUntilFinished(requestOptions, resolve, reject, logger, this.dots);
+                  this.waitUntilTeamsAsyncOperationFinished(requestOptions, resolve, reject, logger, this.dots)
                 }, this.pollingInterval);
+              }
+            })
+            .catch((err: any) => {
+              if (err && err.response && err.response.status && err.response.status === 404) {
+                setTimeout(() => {
+                  this.waitUntilTeamsAsyncOperationFinished(requestOptions, resolve, reject, logger, this.dots)
+                }, this.pollingInterval);
+              } else {
+                reject(err);
               }
             });
         });
@@ -135,12 +144,26 @@ class TeamsTeamAddCommand extends GraphCommand {
           return Promise.resolve(teamsAsyncOperation);
         }
 
-        return request.get({
+        const requestOptions: AxiosRequestConfig = {
           url: `${this.resource}/v1.0/groups/${teamsAsyncOperation.targetResourceId}`,
           headers: {
             accept: 'application/json;odata.metadata=minimal'
           },
           responseType: 'json'
+        };
+
+        return new Promise((resolve, reject) => {
+          request.get<Group>(requestOptions)
+            .then((group: Group) => resolve(group))
+            .catch((err) => {
+              if (err && err.response && err.response.status && err.response.status === 404) {
+                setTimeout(() => {
+                  this.waitUntilGroupFinished(requestOptions, resolve, reject, logger, this.dots)
+                }, this.pollingInterval);
+              } else {
+                reject(err);
+              }
+            });
         });
       })
       .then((output: any) => {
@@ -151,7 +174,7 @@ class TeamsTeamAddCommand extends GraphCommand {
       });
   }
 
-  private waitUntilFinished(requestOptions: any, resolve: (teamsAsyncOperation: TeamsAsyncOperation) => void, reject: (error: any) => void, logger: Logger, dots?: string): void {
+  private waitUntilTeamsAsyncOperationFinished(requestOptions: any, resolve: (teamsAsyncOperation: TeamsAsyncOperation) => void, reject: (error: any) => void, logger: Logger, dots?: string): void {
     if (!this.debug && this.verbose) {
       dots += '.';
       process.stdout.write(`\r${dots}`);
@@ -172,9 +195,35 @@ class TeamsTeamAddCommand extends GraphCommand {
           return;
         }
         setTimeout(() => {
-          this.waitUntilFinished(requestOptions, resolve, reject, logger, dots);
+          this.waitUntilTeamsAsyncOperationFinished(requestOptions, resolve, reject, logger, dots)
         }, this.pollingInterval);
       }).catch(err => reject(err));
+  }
+
+  private waitUntilGroupFinished(requestOptions: any, resolve: (group: Group) => void, reject: (error: any) => void, logger: Logger, dots?: string, timeout?: NodeJS.Timer): void {
+    if (!this.debug && this.verbose) {
+      dots += '.';
+      process.stdout.write(`\r${dots}`);
+    }
+
+    request
+      .get<Group>(requestOptions)
+      .then((group: Group): void => {
+        if (this.verbose) {
+          process.stdout.write('\n');
+        }
+        resolve(group);
+        return;
+      })
+      .catch(err => {
+        if (err.response.status === 404) {
+          setTimeout(() => {
+            this.waitUntilGroupFinished(requestOptions, resolve, reject, logger, dots, timeout)
+          }, this.pollingInterval);
+        } else {
+          reject(err);
+        }
+      });
   }
 
   public options(): CommandOption[] {
