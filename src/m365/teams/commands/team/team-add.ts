@@ -200,7 +200,7 @@ class TeamsTeamAddCommand extends GraphCommand {
       }).catch(err => reject(err));
   }
 
-  private waitUntilGroupFinished(requestOptions: any, resolve: (group: Group) => void, reject: (error: any) => void, logger: Logger, dots?: string, timeout?: NodeJS.Timer): void {
+  private waitUntilGroupFinished(requestOptions: any, resolve: (group: Group) => void, reject: (error: any) => void, logger: Logger, dots?: string): void {
     if (!this.debug && this.verbose) {
       dots += '.';
       process.stdout.write(`\r${dots}`);
@@ -218,7 +218,7 @@ class TeamsTeamAddCommand extends GraphCommand {
       .catch(err => {
         if (err.response.status === 404) {
           setTimeout(() => {
-            this.waitUntilGroupFinished(requestOptions, resolve, reject, logger, dots, timeout)
+            this.waitUntilGroupFinished(requestOptions, resolve, reject, logger, dots)
           }, this.pollingInterval);
         } else {
           reject(err);
